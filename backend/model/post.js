@@ -13,7 +13,7 @@ const PostSchema = new mongoose.Schema({
     coordinates: { type: [Number], required: true },
   },
   createdAt: { type: Date, default: Date.now },
-  type: { type: String, enum: ["text", "poll"], default: "text" }, 
+  type: { type: String, enum: ["text", "poll"], default: "text" },
 });
 
 PostSchema.index({ location: "2dsphere" });

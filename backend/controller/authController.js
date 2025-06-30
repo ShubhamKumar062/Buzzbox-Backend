@@ -37,7 +37,8 @@ module.exports.login = async (req, res) => {
     if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
     const payload = { user: { id: user.id, role: user.role } };
-    jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1d' }, (err, token) => {
+
+    jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5d' }, (err, token) => {
       if (err) throw err;
       res.json({ message: "User logged in successfully", user, token });
     });
@@ -51,6 +52,7 @@ module.exports.getMe = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
     if (!user) return res.status(404).json({ message: 'User not found' });
+
     res.json({ message: "User found", user });
   } catch (err) {
     console.error('GetMe Error:', err.message);

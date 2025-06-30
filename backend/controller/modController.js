@@ -3,6 +3,7 @@ const User = require("../model/user");
 const Group = require("../model/group");
 const Poll = require('../model/poll');
 
+
 exports.deletePost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -57,6 +58,7 @@ module.exports.deletePoll = async (req, res) => {
     if (!poll) {
       return res.status(404).json({ message: "Poll not found" });
     }
+
     if (req.user.role !== "admin" && req.user.role !== "moderator") {
       return res.status(403).json({ message: "Not authorized to delete poll" });
     }
